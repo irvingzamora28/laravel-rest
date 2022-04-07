@@ -1,4 +1,4 @@
 # laravel-rest
 Run the following commands:
-php artisan migrate
-php artisan db:seed
+php artisan migrate --seed
+php artisan passport:install
