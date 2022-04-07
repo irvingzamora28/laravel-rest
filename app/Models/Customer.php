@@ -10,6 +10,13 @@ class Customer extends Model
     use HasFactory;
 
     /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'dni';
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
