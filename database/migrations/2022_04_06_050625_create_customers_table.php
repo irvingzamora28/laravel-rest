@@ -24,7 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('email', 120)->comment('Correo Electrónico');
             $table->string('name', 45)->comment('Nombre');
             $table->string('last_name', 45)->comment('Apellido');
-            $table->string('address', 255)->comment('Dirección');
+            $table->string('address', 255)->nullable()->comment('Dirección');
             $table->dateTime('date_reg')->comment('Fecha y hora del registro');
             $table->enum('status', ['A', 'I', 'trash'])->default('A')->comment('estado del registro:\nA
             : Activo\nI : Desactivo\ntrash : Registro eliminado');
