@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerController;
+use App\Models\Customer;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,10 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/test', function(Request $request) {
-    $communes = Region::find(1)->communes;
+    $region = Customer::find(5)->region;
     $response = [
         'status' => 200,
-        'message' => $communes,
+        'message' => $region,
     ];
     return response()->json($response, 200);
 

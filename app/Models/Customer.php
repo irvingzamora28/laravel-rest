@@ -41,4 +41,20 @@ class Customer extends Authenticatable
         'status' => 'A',
     ];
 
+    /**
+     * Get the commune associated with the user.
+     */
+    public function commune()
+    {
+        return $this->hasOne(Commune::class, 'id_com');
+    }
+
+    /**
+     * Get the region associated with the user.
+     */
+    public function region()
+    {
+        return $this->hasOne(Region::class, 'id_reg');
+    }
+
 }
