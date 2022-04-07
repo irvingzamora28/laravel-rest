@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('customers', CustomerController::class);
+Route::post('/customers/register', [CustomerAuthController::class, 'register'])->name('customers.register');
 
+Route::group(['middleware' => ['auth:customer-api']], function() {
+    
 // Send custom response in case customer sent through implicit binding does not exist
 Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show')
     ->missing(function (Request $request) {
@@ -44,6 +48,7 @@ Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->
         ];
         return response()->json($response, 404);
     });
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

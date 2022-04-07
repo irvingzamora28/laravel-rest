@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->engine = 'MyISAM';
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
+            $table->id();
             $table->string('dni', 45)->comment('Documento de Identidad');
             $table->integer('id_reg');
             $table->integer('id_com');
@@ -27,7 +28,7 @@ class CreateCustomersTable extends Migration
             $table->dateTime('date_reg')->comment('Fecha y hora del registro');
             $table->enum('status', ['A', 'I', 'trash'])->default('A')->comment('estado del registro:\nA
             : Activo\nI : Desactivo\ntrash : Registro eliminado');
-            $table->primary(['dni', 'id_reg', 'id_com']);
+            $table->unique(['dni', 'id_reg', 'id_com']);
             $table->index(['id_com', 'id_reg'], 'fk_customers_communes1_idx');
             $table->unique('email', 'email_UNIQUE');
         });
