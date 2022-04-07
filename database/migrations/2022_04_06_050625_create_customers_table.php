@@ -26,7 +26,8 @@ class CreateCustomersTable extends Migration
             $table->string('last_name', 45)->comment('Apellido');
             $table->string('address', 255)->nullable()->comment('Dirección');
             $table->dateTime('date_reg')->comment('Fecha y hora del registro');
-            $table->enum('status', ['A', 'I', 'trash'])->default('A')->comment('estado del registro:\nA
+            $table->enum('status', [config('constants.statuses.active'), config('constants.statuses.inactive'), config('constants.statuses.trash')])->default(config('constants.statuses.active'))
+            ->comment('estado del registro:\nA
             : Activo\nI : Desactivo\ntrash : Registro eliminado');
             $table->softDeletes();
             $table->unique(['dni', 'id_reg', 'id_com']);

@@ -54,9 +54,9 @@ class RouteServiceProvider extends ServiceProvider
         // Allow to delete active and inactive users
         Route::bind('customer', function ($value, $request) {
             if ($request->getName() == 'customers.update' || $request->getName() == 'customers.destroy') {
-                return Customer::where('id', '=', $value)->where('status', '!=', 'trash')->first();
+                return Customer::where('id', '=', $value)->where('status', '!=', config('constants.statuses.trash'))->first();
             } else {
-                return Customer::where('id', '=', $value)->where('status', '=', 'A')->first();
+                return Customer::where('id', '=', $value)->where('status', '=', config('constants.statuses.active'))->first();
             }
         });
     }

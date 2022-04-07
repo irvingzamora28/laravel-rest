@@ -21,7 +21,7 @@ class CreateCommunesTable extends Migration
             $table->integer('id_com');
             $table->integer('id_reg');
             $table->string('description', 90);
-            $table->enum('status', ['A', 'I', 'trash'])->default('A');
+            $table->enum('status', [config('constants.statuses.active'), config('constants.statuses.inactive'), config('constants.statuses.trash')])->default(config('constants.statuses.active'));
             $table->primary(['id_com', 'id_reg']);
             $table->index('id_com', 'fk_communes_region_idx');
 
