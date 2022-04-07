@@ -17,7 +17,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return CustomerResource::collection(Customer::all());
+        return CustomerResource::collection(Customer::where('status', 'A')->get());
     }
 
     /**
@@ -59,7 +59,8 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $customer->update([
-            'name'  => $request->input('name')
+            'name'  => $request->input('name'),
+            'status'  => $request->input('status')
         ]);
 
         return CustomerResource::make($customer);
@@ -74,7 +75,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        
+
         return response(null, 204);
     }
 }

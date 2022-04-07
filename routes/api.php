@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/test', function(Request $request) {
     $region = Customer::find(5)->region;
+    $all = Customer::where('status', 'A')->get();
+    $active = Customer::where('id', '=', 1)->where('status', '=', 'A')->first();
     $response = [
         'status' => 200,
-        'message' => $region,
+        'message' => $active,
     ];
     return response()->json($response, 200);
 

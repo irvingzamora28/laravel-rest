@@ -30,7 +30,7 @@ class Customer extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['dni', 'email', 'name', 'last_name', 'address', 'id_reg', 'id_com', 'date_reg'];
+    protected $fillable = ['dni', 'email', 'name', 'last_name', 'address', 'id_reg', 'id_com', 'date_reg', 'status'];
 
     /**
      * The model's default values for attributes.
