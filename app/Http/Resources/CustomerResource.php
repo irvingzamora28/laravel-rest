@@ -14,12 +14,22 @@ class CustomerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'name'          => $this->name,
-            'last_name'     => $this->last_name,
-            'address'       => $this->address,
-            'description'   => $this->region->description . ' ' . $this->commune->description,
-            'success'       => true
-        ];
+        if ($this->trashed()) {
+            return [
+                'status'        => 204,
+                'message'       => 'Customer deleted',
+                'success'       => true
+            ];
+        } else {
+            return [
+                'name'          => $this->name,
+                'last_name'     => $this->last_name,
+                'address'       => $this->address,
+                'description'   => $this->region->description . ' ' . $this->commune->description,
+                'success'       => true
+            ];
+        }
     }
+
+   
 }

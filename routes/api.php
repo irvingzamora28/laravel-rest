@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/test', function(Request $request) {
+
+Route::get('/test', function (Request $request) {
     $region = Customer::find(5)->region;
     $all = Customer::where('status', 'A')->get();
     $active = Customer::where('id', '=', 1)->where('status', '=', 'A')->first();
@@ -26,43 +27,22 @@ Route::get('/test', function(Request $request) {
         'message' => $active,
     ];
     return response()->json($response, 200);
-
 });
 
 Route::apiResource('customers', CustomerController::class);
 Route::post('/customers/register', [CustomerAuthController::class, 'register'])->name('customers.register');
 
-Route::group(['middleware' => ['auth:customer-api']], function() {
-    
-// Send custom response in case customer sent through implicit binding does not exist
-Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show')
-    ->missing(function (Request $request) {
-        $response = [
-            'status' => 404,
-            'message' => 'Customer does not exist',
-        ];
-        return response()->json($response, 404);
-    });
+Route::group(['middleware' => ['auth:customer-api']], function () {
 
-Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update')
-    ->missing(function (Request $request) {
-        $response = [
-            'status' => 404,
-            'message' => 'Customer does not exist',
-        ];
-        return response()->json($response, 404);
-    });
+    // Send custom response in case customer sent through implicit binding does not exist
+    Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show')
+        ->missing([CustomerController::class, 'missingCustomerResponse']);
 
-Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')
-    ->missing(function (Request $request) {
-        $response = [
-            'status' => 404,
-            'message' => 'Customer does not exist',
-        ];
-        return response()->json($response, 404);
-    });
-});
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update')
+        ->missing([CustomerController::class, 'missingCustomerResponse']);
+
+
+    Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')
+        ->missing([CustomerController::class, 'missingCustomerResponse']);
 });

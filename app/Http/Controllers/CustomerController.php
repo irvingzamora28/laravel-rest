@@ -74,8 +74,24 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        $customer->update([ 'status'  => 'trash' ]);
         $customer->delete();
 
-        return response(null, 204);
+        return CustomerResource::make($customer);
+    }
+
+    /**
+     * Return response indicating customer record was not found
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function missingCustomerResponse(Request $request)
+    {
+        $response = [
+            'status' => 404,
+            'message' => 'Registro no existe',
+        ];
+        return response()->json($response, 404);
     }
 }

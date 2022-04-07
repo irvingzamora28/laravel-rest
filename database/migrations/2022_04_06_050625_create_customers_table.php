@@ -28,6 +28,7 @@ class CreateCustomersTable extends Migration
             $table->dateTime('date_reg')->comment('Fecha y hora del registro');
             $table->enum('status', ['A', 'I', 'trash'])->default('A')->comment('estado del registro:\nA
             : Activo\nI : Desactivo\ntrash : Registro eliminado');
+            $table->softDeletes();
             $table->unique(['dni', 'id_reg', 'id_com']);
             $table->index(['id_com', 'id_reg'], 'fk_customers_communes1_idx');
             $table->unique('email', 'email_UNIQUE');
