@@ -49,9 +49,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
 
-        // Bind only active customers and allow to update inactive users
+        // Bind only active customers
+        // Allow to update active and inactive users
+        // Allow to delete active and inactive users
         Route::bind('customer', function ($value, $request) {
-            if ($request->getName() == 'customers.update') {
+            if ($request->getName() == 'customers.update' || $request->getName() == 'customers.destroy') {
                 return Customer::where('id', '=', $value)->where('status', '!=', 'trash')->first();
             } else {
                 return Customer::where('id', '=', $value)->where('status', '=', 'A')->first();
