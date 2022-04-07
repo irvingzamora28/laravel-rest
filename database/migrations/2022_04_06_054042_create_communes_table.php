@@ -38,6 +38,6 @@ class CreateCommunesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('communs');
+        Schema::dropIfExists('communes');
     }
 }
