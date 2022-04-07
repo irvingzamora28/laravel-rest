@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             RegionSeeder::class,
-            CommunSeeder::class,
+            CommuneSeeder::class,
         ]);
     }
 }

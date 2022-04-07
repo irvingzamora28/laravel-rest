@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Region extends Model
+class Commune extends Model
 {
     use HasFactory;
 
@@ -14,13 +14,13 @@ class Region extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'id_reg';
+    protected $primaryKey = 'id_com';
 
     /**
-     * Get the communes for the blog post.
-     */
-    public function communes()
-    {
-        return $this->hasMany(Commune::class, 'id_reg', 'id_reg');
-    }
+ * Get the region that owns the comment.
+ */
+public function region()
+{
+    return $this->belongsTo(Region::class, 'id_reg');
+}
 }

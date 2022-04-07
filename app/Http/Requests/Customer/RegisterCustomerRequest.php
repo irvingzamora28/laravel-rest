@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Customer;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterCustomerRequest extends FormRequest
 {
@@ -30,7 +31,13 @@ class RegisterCustomerRequest extends FormRequest
             'address' => 'max:255',
             'email' => 'required|unique:customers|max:120',
             'id_reg' => 'required|exists:regions,id_reg',
-            'id_com' => 'required|exists:communes,id_com',
+            'id_com' => [
+                'required',
+                Rule::exists('communes')->where(function ($query) {
+                    $query->where('id_com', request()->id_com)
+                        ->where('id_reg', request()->id_reg);
+                }),
+            ]
         ];
     }
 }

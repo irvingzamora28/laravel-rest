@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerController;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/test', function(Request $request) {
+    $communes = Region::find(1)->communes;
+    $response = [
+        'status' => 200,
+        'message' => $communes,
+    ];
+    return response()->json($response, 200);
+
+});
 
 Route::apiResource('customers', CustomerController::class);
 Route::post('/customers/register', [CustomerAuthController::class, 'register'])->name('customers.register');
