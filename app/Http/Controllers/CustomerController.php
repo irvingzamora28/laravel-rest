@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\RegisterCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Carbon\Carbon;
@@ -22,22 +23,18 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param RegisterCustomerRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegisterCustomerRequest $request)
     {
-        $mytime = Carbon::now();
-        $customer = Customer::create([
-            'dni'       => '1235',
-            'name'      => 'Joh',
-            'email'     => 'email1@email.com',
-            'last_name' => 'Doe',
-            'address'   => 'Federick St 412',
-            'date_reg'  =>  $mytime->toDateTimeString(),
-            'id_reg'    => 999,
-            'id_com'    => 999,
-        ]);
+        $validated = $request->validated();
+
+        // Get current date
+        $currDateTime = Carbon::now();
+
+        $customer = Customer::create(array_merge($validated, ['date_reg'  =>  $currDateTime->toDateTimeString(),]));
+
         return CustomerResource::make($customer);
     }
 
@@ -64,6 +61,7 @@ class CustomerController extends Controller
         $customer->update([
             'name'  => $request->input('name')
         ]);
+
         return CustomerResource::make($customer);
     }
 
@@ -76,6 +74,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
+        
         return response(null, 204);
     }
 }
