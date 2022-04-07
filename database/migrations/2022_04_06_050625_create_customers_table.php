@@ -14,6 +14,9 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
             $table->string('dni', 45)->comment('Documento de Identidad');
             $table->integer('id_reg');
             $table->integer('id_com');
@@ -27,9 +30,6 @@ class CreateCustomersTable extends Migration
             $table->primary(['dni', 'id_reg', 'id_com']);
             $table->index(['id_com', 'id_reg'], 'fk_customers_communes1_idx');
             $table->unique('email', 'email_UNIQUE');
-            $table->engine = 'MyISAM';
-            $table->charset = 'utf8';
-            $table->collation = 'utf8_general_ci';
         });
     }
 
