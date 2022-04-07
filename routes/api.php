@@ -28,6 +28,16 @@ Route::get('/customers/{customer}', [CustomerController::class, 'show'])
         return response()->json($response, 404);
     });
 
+Route::put('/customers/{customer}', [CustomerController::class, 'update'])
+    ->name('customers.update')
+    ->missing(function (Request $request) {
+        $response = [
+            'status' => 404,
+            'message' => 'Customer does not exist',
+        ];
+        return response()->json($response, 404);
+    });
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
