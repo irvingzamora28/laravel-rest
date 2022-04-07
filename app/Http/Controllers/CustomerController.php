@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -26,7 +27,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $mytime = Carbon::now();
+        $customer = Customer::create([
+            'dni'       => '1235',
+            'name'      => 'Joh',
+            'email'     => 'email1@email.com',
+            'last_name' => 'Doe',
+            'address'   => 'Federick St 412',
+            'date_reg'  =>  $mytime->toDateTimeString(),
+            'id_reg'    => 999,
+            'id_com'    => 999,
+        ]);
+        return CustomerResource::make($customer);
     }
 
     /**

@@ -17,6 +17,13 @@ class Customer extends Model
     public $timestamps = false;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['dni', 'email', 'name', 'last_name', 'address', 'id_reg', 'id_com', 'date_reg'];
+
+    /**
      * The model's default values for attributes.
      *
      * @var array
