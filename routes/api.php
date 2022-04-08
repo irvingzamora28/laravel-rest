@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('customers', CustomerController::class);
 Route::post('/customers/register', [CustomerAuthController::class, 'register'])->name('customers.register');
 
 Route::group(['middleware' => ['auth:customer-api']], function () {
 
-    // Send custom response in case customer sent through implicit binding does not exist
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+
     Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show')
         ->missing([CustomerController::class, 'missingCustomerResponse']);
 

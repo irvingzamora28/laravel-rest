@@ -59,10 +59,7 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        $customer->update([
-            'name'  => $request->input('name'),
-            'status'  => $request->input('status')
-        ]);
+        $customer->update($request->all());
 
         return CustomerResource::make($customer);
     }
