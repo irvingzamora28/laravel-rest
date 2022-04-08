@@ -24,11 +24,6 @@ Route::group(['middleware' => ['auth:customer-api']], function () {
     Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show')
         ->missing([CustomerController::class, 'missingCustomerResponse']);
 
-
-    Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update')
-        ->missing([CustomerController::class, 'missingCustomerResponse']);
-
-
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')
         ->missing([CustomerController::class, 'missingCustomerResponse']);
 });

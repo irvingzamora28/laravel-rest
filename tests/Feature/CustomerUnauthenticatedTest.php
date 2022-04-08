@@ -49,12 +49,6 @@ class CustomerUnauthenticatedTest extends TestCase
         $response->assertStatus(401); 
     }
 
-    public function test_unauthenticated_update_customer()
-    {
-        $response = $this->withHeaders($this->headers)->put('api/customers/1?name=New Name');
-        $response->assertStatus(401); 
-    }
-
     public function test_unauthenticated_delete_customer()
     {
         $response = $this->withHeaders($this->headers)->delete('api/customers/1');
