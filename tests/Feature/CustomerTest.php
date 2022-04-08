@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -10,13 +11,30 @@ class CustomerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_createuser()
+    use DatabaseMigrations;
+
+    public function setUp(): void
     {
-        $response = $this->post('api/customers', ["yes"]);
+        parent::setUp();
+        $this->seed();
+    }
+
+    public function test_createcustomer()
+    {
+        $response = $this->post('api/customers', [
+            'dni'       => '1235',
+            'name'      => 'Joh',
+            'email'     => 'email1@email.com',
+            'last_name' => 'Doe',
+            'address'   => 'Federick St 412',
+            'date_reg'  =>  '0000-00-00 00:00:00',
+            'id_reg'    => 1,
+            'id_com'    => 11,
+        ]);
         $response->assertStatus(201); 
     }
 
-    public function test_getuser()
+    public function test_getcustomer()
     {
         $response = $this->post('api/customers', [
             'dni'       => '1235',
@@ -38,7 +56,7 @@ class CustomerTest extends TestCase
         $response->assertStatus(200); 
     }
 
-    public function test_updateuser()
+    public function test_updatecustomer()
     {
         $response = $this->post('api/customers', [
             'dni'       => '1235',
@@ -54,7 +72,7 @@ class CustomerTest extends TestCase
         $response->assertStatus(200); 
     }
 
-    public function test_deleteuser()
+    public function test_deletecustomer()
     {
         $response = $this->post('api/customers', [
             'dni'       => '1235',
