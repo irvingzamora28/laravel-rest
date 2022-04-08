@@ -1,4 +1,67 @@
-# laravel-rest
-Run the following commands:
+# laravel REST Project
+
+This is a Laravel Project that has a REST API as an endpoint, the project uses different tools that Laravel offers, like
+Resources, Validation, Authentication, DBORM, Requests, etc.
+
+## Requirements
+* [`^7.3PHP`](https://www.php.net/downloads.php#v7.4.28)
+* [`Composer`](https://getcomposer.org/)
+
+## Installation
+
+To install the project, run the following commands in the root directory where package.json is:
+
+```sh
+git clone git@github.com:irvingzamora28/laravel-rest.git
+cd laravel-rest
+composer install
 php artisan migrate --seed
 php artisan passport:install
+```
+## Configuration
+The project needs some configuration before it is started, create a file called .env inside the project's root
+Inside .env paste the following code:
+
+```sh
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=false
+APP_URL=http://localhost
+APP_TIMEZONE='America/Chihuahua'
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbname
+DB_USERNAME=username
+DB_PASSWORD=password
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+FILESYSTEM_DRIVER=local
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+
+```
+Modify the DB_DATABASE, DB_USERNAME, DB_PASSWORD to the values of the credentials to your own database.
+
+The last step is to generate a key for the project, in order to do that, run the following command:
+
+```sh
+php artisan key:generate
+```
+## Quick start
+
+To start the project, run the following command:
+
+```sh
+php artisan serve
+```
+
+After running the command, the project should be live in http://localhost:8000/
