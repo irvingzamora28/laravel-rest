@@ -70,17 +70,19 @@ After running the command, the project should be live in http://localhost:8000/
 
 The command `php artisan migrate --seed` creates all the necessary tables for the project and also fills up the 
 regions and communes table with data.
+
 Example
 
-| id_reg        | Region                        | Coomune       |
-| ------------- |:-----------------------------:| -------------:|
-|      1        | Región De Tarapacá            | Iquique       |
-|      1        | Región De Tarapacá            | Camiña        |
-|      1        | Región De Tarapacá            | Colchane      |
-|      1        | Región De Tarapacá            | Huara         |
-|      1        | Región De Tarapacá            | Pica          |
-|      1        | Región De Tarapacá            | Pozo Almonte  |
-|      1        | Región De Tarapacá            | Alto Hospicio |
+| id_reg        | Region                        | id_com    | Coomune       |
+| ------------- |:-----------------------------:|:---------:| -------------:|
+|      1        | Región De Tarapacá            |      5    | Iquique       |
+|      1        | Región De Tarapacá            |      6    | Camiña        |
+|      1        | Región De Tarapacá            |      7    | Colchane      |
+|      1        | Región De Tarapacá            |      8    | Huara         |
+|      1        | Región De Tarapacá            |      9    | Pica          |
+|      1        | Región De Tarapacá            |     10    | Pozo Almonte  |
+|      1        | Región De Tarapacá            |     11    | Alto Hospicio |
+
 
 ## REST Routes
 | Method        | URL                           | Description  |
@@ -91,3 +93,18 @@ Example
 | PUT           | `api/customers/{customer_id}`  | Update a customer |
 | DELETE        | `api/customers/{customer_id}`  | Delete a customer |
 | GET           | `api/customers/{customer_id}`  | Get the information of a customer |
+
+## Requests
+
+Register a customer
+
+```sh
+{
+    "dni": "1234567890",
+    "name": "Johnny",
+    "email": "johnnycash1@email.com",
+    "last_name": "Cash",
+    "id_reg": 1,
+    "id_com": 11
+}
+```
