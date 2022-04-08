@@ -66,6 +66,21 @@ php artisan serve
 
 After running the command, the project should be live in http://localhost:8000/
 
+## Database seed
+
+The command `php artisan migrate --seed` creates all the necessary tables for the project and also fills up the 
+regions and communes table with data.
+Example
+
+| id_reg        | Region                        | Coomune       |
+| ------------- |:-----------------------------:| -------------:|
+|      1        | Región De Tarapacá            | Iquique       |
+|      1        | Región De Tarapacá            | Camiña        |
+|      1        | Región De Tarapacá            | Colchane      |
+|      1        | Región De Tarapacá            | Huara         |
+|      1        | Región De Tarapacá            | Pica          |
+|      1        | Región De Tarapacá            | Pozo Almonte  |
+|      1        | Región De Tarapacá            | Alto Hospicio |
 
 ## REST Routes
 | Method        | URL                           | Description  |
