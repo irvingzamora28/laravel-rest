@@ -51,23 +51,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  UpdateCustomerRequest  $request
-     * @param Customer $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
-    {
-        $customer->update([
-            'name'  => $request->input('name'),
-            'status'  => $request->input('status')
-        ]);
-
-        return CustomerResource::make($customer);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param Customer $customer

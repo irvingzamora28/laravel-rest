@@ -2,9 +2,6 @@
 
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerController;
-use App\Models\Customer;
-use App\Models\Region;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,30 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function (Request $request) {
-    $region = Customer::find(5)->region;
-    $all = Customer::where('status', 'A')->get();
-    $active = Customer::where('id', '=', 1)->where('status', '=', 'A')->first();
-    $response = [
-        'status' => 200,
-        'message' => $active,
-    ];
-    return response()->json($response, 200);
-});
-
-Route::apiResource('customers', CustomerController::class);
 Route::post('/customers/register', [CustomerAuthController::class, 'register'])->name('customers.register');
 
 Route::group(['middleware' => ['auth:customer-api']], function () {
 
-    // Send custom response in case customer sent through implicit binding does not exist
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+
     Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show')
         ->missing([CustomerController::class, 'missingCustomerResponse']);
-
-
-    Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update')
-        ->missing([CustomerController::class, 'missingCustomerResponse']);
-
 
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')
         ->missing([CustomerController::class, 'missingCustomerResponse']);

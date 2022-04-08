@@ -94,6 +94,16 @@ Example
 | DELETE        | `api/customers/{customer_id}`  | Delete a customer |
 | GET           | `api/customers/{customer_id}`  | Get the information of a customer |
 
+## Tests
+
+The project is implemented with feature testing, the purpose of these tests is to verify that the routes are
+only accesible with OAuth2.
+
+To execute the tests, run the following command:
+```sh
+php artisan test
+```
+
 ## Requests
 
 Register a customer

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AcceptJsonApiMiddleware;
 use App\Http\Middleware\LogTraffic;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -41,6 +42,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            AcceptJsonApiMiddleware::class,
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
