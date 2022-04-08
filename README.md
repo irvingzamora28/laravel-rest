@@ -49,14 +49,14 @@ LOG_LEVEL=debug
 ```
 Modify the DB_DATABASE, DB_USERNAME, DB_PASSWORD to the values of the credentials to your own database.
 
-Populate the database with the data needed
+Populate the database with the data needed ** (Before running this command, make sure the database specified in the .env is already created) **
 
 ```sh
 php artisan migrate --seed
 php artisan passport:install
 ```
 
-The last step is to generate a key for the project, in order to do that, run the following command:
+The last step is to generate a key for the project, in order to do that, ** (Before running this command, make sure the .env file has enough permissions to be modified) ** run the following command:
 
 ```sh
 php artisan key:generate
