@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Customer;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -46,6 +47,17 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+        });
+
+        // Bind only active customers
+        // Allow to update active and inactive users
+        // Allow to delete active and inactive users
+        Route::bind('customer', function ($value, $request) {
+            if ($request->getName() == 'customers.update' || $request->getName() == 'customers.destroy') {
+                return Customer::where('id', '=', $value)->where('status', '!=', config('constants.statuses.trash'))->first();
+            } else {
+                return Customer::where('id', '=', $value)->where('status', '=', config('constants.statuses.active'))->first();
+            }
         });
     }
 

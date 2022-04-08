@@ -14,12 +14,12 @@ class CreateRegionsTable extends Migration
     public function up()
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->integer('id_reg')->autoIncrement();
-            $table->string('description', 90);
-            $table->enum('status', ['A', 'I', 'trash'])->default('A');
             $table->engine = 'MyISAM';
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
+            $table->integer('id_reg')->autoIncrement();
+            $table->string('description', 90);
+            $table->enum('status', [config('constants.statuses.active'), config('constants.statuses.inactive'), config('constants.statuses.trash')])->default(config('constants.statuses.active'));
         });
     }
 

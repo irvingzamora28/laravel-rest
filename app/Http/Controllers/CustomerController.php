@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\RegisterCustomerRequest;
+use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Carbon\Carbon;
@@ -16,62 +18,81 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return CustomerResource::collection(Customer::all());
+        return CustomerResource::collection(Customer::where('status', 'A')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param RegisterCustomerRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegisterCustomerRequest $request)
     {
-        $mytime = Carbon::now();
-        $customer = Customer::create([
-            'dni'       => '1235',
-            'name'      => 'Joh',
-            'email'     => 'email1@email.com',
-            'last_name' => 'Doe',
-            'address'   => 'Federick St 412',
-            'date_reg'  =>  $mytime->toDateTimeString(),
-            'id_reg'    => 999,
-            'id_com'    => 999,
-        ]);
+        $validated = $request->validated();
+
+        // Get current date
+        $currDateTime = Carbon::now();
+
+        $customer = Customer::create(array_merge($validated, ['date_reg'  =>  $currDateTime->toDateTimeString(),]));
+
         return CustomerResource::make($customer);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Customer $customer
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Customer $customer)
     {
-        //
+        return CustomerResource::make($customer);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UpdateCustomerRequest  $request
+     * @param Customer $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->update([
+            'name'  => $request->input('name'),
+            'status'  => $request->input('status')
+        ]);
+
+        return CustomerResource::make($customer);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Customer $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Customer $customer)
     {
-        //
+        $customer->update([ 'status'  => 'trash' ]);
+        $customer->delete();
+
+        return CustomerResource::make($customer);
+    }
+
+    /**
+     * Return response indicating customer record was not found
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function missingCustomerResponse(Request $request)
+    {
+        $response = [
+            'status' => 404,
+            'message' => 'Registro no existe',
+        ];
+        return response()->json($response, 404);
     }
 }
