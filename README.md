@@ -15,8 +15,6 @@ To install the project, run the following commands:
 git clone git@github.com:irvingzamora28/laravel-rest.git
 cd laravel-rest
 composer install
-php artisan migrate --seed
-php artisan passport:install
 ```
 ## Configuration
 The project needs some configuration before it is started, create a file called .env inside the project's root
@@ -50,6 +48,13 @@ LOG_LEVEL=debug
 
 ```
 Modify the DB_DATABASE, DB_USERNAME, DB_PASSWORD to the values of the credentials to your own database.
+
+Populate the database with the data needed
+
+```sh
+php artisan migrate --seed
+php artisan passport:install
+```
 
 The last step is to generate a key for the project, in order to do that, run the following command:
 
