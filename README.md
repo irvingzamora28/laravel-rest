@@ -98,6 +98,8 @@ Example
 
 Register a customer
 
+`api/customers/register`
+
 ```sh
 {
     "dni": "1234567890",
@@ -106,5 +108,28 @@ Register a customer
     "last_name": "Cash",
     "id_reg": 1,
     "id_com": 11
+}
+```
+
+Get list of all active customers
+
+`api/customers`
+
+Get information of the customer (active)
+
+`api/customers/{customer_id}`
+
+Delete customer (active|inactive)
+
+`api/customers/{customer_id}`
+
+Update a customer (active|inactive)
+
+`api/customers/{customer_id}`
+
+```sh
+{
+    "name": "New name",
+    "status": "A"
 }
 ```
