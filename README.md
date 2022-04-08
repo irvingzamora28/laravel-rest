@@ -1,4 +1,4 @@
-# laravel REST Project
+# Laravel REST Project
 
 This is a Laravel Project that has a REST API as an endpoint, the project uses different tools that Laravel offers, like
 Resources, Validation, Authentication, DBORM, Requests, etc.
@@ -9,7 +9,7 @@ Resources, Validation, Authentication, DBORM, Requests, etc.
 
 ## Installation
 
-To install the project, run the following commands in the root directory where package.json is:
+To install the project, run the following commands:
 
 ```sh
 git clone git@github.com:irvingzamora28/laravel-rest.git
@@ -65,3 +65,14 @@ php artisan serve
 ```
 
 After running the command, the project should be live in http://localhost:8000/
+
+
+## REST Routes
+| Method        | URL                           | Description  |
+| ------------- |:-----------------------------:| ------------:|
+| GET           | `api/customers`                | Get a list of all the customers |
+| POST          | `api/customers`                | Create a new customer |
+| POST          | `api/customers/register`       | Register a new customer |
+| PUT           | `api/customers/{customer_id}`  | Update a customer |
+| DELETE        | `api/customers/{customer_id}`  | Delete a customer |
+| GET           | `api/customers/{customer_id}`  | Get the information of a customer |
