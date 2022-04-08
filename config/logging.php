@@ -113,6 +113,18 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'outbound-traffic' => [
+            'driver'    => 'single',
+            'path'      => storage_path('logs/outbound-traffic.log'),
+            'level'     => 'debug'
+        ],
+
+        'inbound-traffic' => [
+            'driver'    => 'single',
+            'path'      => storage_path('logs/inbound-traffic.log'),
+            'level'     => 'debug'
+        ]
     ],
 
 ];
